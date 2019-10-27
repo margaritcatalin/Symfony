@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 /**
  * @Route("/post")
  */
@@ -41,13 +42,15 @@ class PostController
     PostRepository $postRepository,
     FormFactoryInterface $formFactory,
     EntityManagerInterface $entityManager,
-    RouterInterface $router)
+    RouterInterface $router,
+    FlashBagInterface $flashBag)
   {
     $this->twig = $twig;
     $this->postRepository = $postRepository;
     $this->formFactory = $formFactory;
     $this->entityManager = $entityManager;
     $this->router = $router;
+    $this->flashBag = $flashBag;
   }
 
   /**
@@ -125,4 +128,16 @@ class PostController
     ));
   }
 
+    /**
+   * @Route("/delete/{id}", name="post_delete")
+   */
+  public function delete(Post $post)
+  {
+    $this->entityManager->remove($post);
+    $this->entityManager->flush();
+    $this->flashBag->add('notice', 'Post was deleted');
+    return new RedirectResponse(
+      $this->router->generate('post_index')
+    );
+  }
 }
