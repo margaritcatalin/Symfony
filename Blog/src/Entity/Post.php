@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PostRepository")
  */
@@ -21,7 +22,7 @@ class Post
     /**
      * @ORM\Column(type="string", length=280)
      * @Assert\NotBlank()
-     * @assert\Length(min=10, minMessage="Введите больше символов")
+     * @assert\Length(min=10, minMessage="Enter more characters")
      */
     private $text;
 

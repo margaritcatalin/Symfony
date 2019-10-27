@@ -35,6 +35,7 @@ class PostController
    * @var RouterInterface
    */
   private $router;
+  
   function __construct(
     \Twig_Environment $twig,
     PostRepository $postRepository,
@@ -48,16 +49,18 @@ class PostController
     $this->entityManager = $entityManager;
     $this->router = $router;
   }
+
   /**
    * @Route("/", name="post_index")
    */
   public function index()
   {
     $html = $this->twig->render('post/index.html.twig', [
-      'posts' => $this->postRepository->findAll()
+      'posts' => $this->postRepository->findBy([], ['time' => 'DESC'])
     ]);
     return new Response($html);
   }
+
   /**
    * @Route ("/add", name="post_add")
    */
@@ -83,4 +86,43 @@ class PostController
       ['form' => $form->createView()]
     ));
   }
+
+    /**
+   * @Route("/{id}", name="post_post")
+   */
+  public function post(Post $post)
+  {
+    return new Response(
+      $this->twig->render(
+        'post/post.html.twig',
+        [
+          'post' => $post
+        ]
+      )
+    );
+  }
+
+  /**
+   * @Route("/edit/{id}", name="post_edit")
+   */
+  public function edit(Post $post, Request $request)
+  {
+    $form = $this->formFactory->create(
+            PostType::class,
+            $post
+        );
+    $form->handleRequest($request);
+    if($form->isSubmitted() && $form->isValid())
+    {
+      $this->entityManager->flush();
+      return new RedirectResponse(
+        $this->router->generate('post_index')
+      );
+    }
+    return new Response($this->twig->render(
+      'post/add.html.twig',
+      ['form' => $form->createView()]
+    ));
+  }
+
 }
