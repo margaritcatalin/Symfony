@@ -30,7 +30,10 @@ class Post
      */
     private $time;
 
-    public function getId(): ?int
+    /**
+     * @return mixed
+     */
+    public function getId()
     {
         return $this->id;
     }
