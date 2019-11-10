@@ -13,19 +13,29 @@ class AppFixtures extends Fixture
         'email' => 'user1@test.ro',
         'password' => '12341234',
         'fullName' => 'Test User1',
+        'roles' => [User::ROLE_USER]
     ],
     [
         'username' => 'user2',
         'email' => 'user2@test.ro',
         'password' => '12341234',
         'fullName' => 'Test User2',
+        'roles' => [User::ROLE_USER]
     ],
     [
         'username' => 'user3',
         'email' => 'user3@test.ro',
         'password' => '12341234',
         'fullName' => 'Test User3',
-    ]
+        'roles' => [User::ROLE_USER]
+    ],
+    [
+      'username' => 'admin',
+      'email' => 'admin@test.ro',
+      'password' => '12341234',
+      'fullName' => 'Admin Admin',
+      'roles' => [User::ROLE_ADMIN]
+  ]
   ];
   private const POST_TEXT = [
     'Hello, how are you?',
@@ -83,6 +93,7 @@ class AppFixtures extends Fixture
               $userData['password']
             )
         );
+        $user->setRoles($userData['roles']);
         $this->addReference(
           $userData['username'],
           $user
