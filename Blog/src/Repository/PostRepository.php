@@ -3,6 +3,7 @@ namespace App\Repository;
 use App\Entity\Post;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Common\Collections\Collection;
 /**
  * @method Post|null find($id, $lockMode = null, $lockVersion = null)
  * @method Post|null findOneBy(array $criteria, array $orderBy = null)
@@ -18,22 +19,22 @@ class PostRepository extends ServiceEntityRepository
           Post::class
       );
   }
-    // /**
-    //  * @return Post[] Returns an array of Post objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @return Post[] Returns an array of Post objects
+    */
+    public function findAllByUsers(Collection $users)
     {
-        return $this->createQueryBuilder('m')
-            ->andWhere('m.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('m.id', 'ASC')
-            ->setMaxResults(10)
+        // dump($users);die;
+        $result = $this->createQueryBuilder('p')
+            ->select('p')
+            ->where( 'p.user IN (:following) ')
+            ->setParameter('following', $users)
+            ->orderBy('p.time', 'DESC')
             ->getQuery()
             ->getResult()
         ;
+        return $result;
     }
-    */
     /*
     public function findOneBySomeField($value): ?Post
     {

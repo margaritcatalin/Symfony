@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 use App\Entity\Post;
+use App\Entity\User;
 use App\Form\PostType;
 use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -13,6 +14,8 @@ use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use App\Repository\UserRepository;
 /**
  * @Route("/post")
  */
@@ -34,7 +37,7 @@ class PostController
   private $authorizationChecker;
   /**
    * @param Twig_Environment              $twig                 [description]
-   * @param PostRepository           $postRepository  [description]
+   * @param PostRepository                $postRepository  [description]
    * @param FormFactoryInterface          $formFactory          [description]
    * @param EntityManagerInterface        $entityManager        [description]
    * @param RouterInterface               $router               [description]
@@ -61,17 +64,48 @@ class PostController
   /**
    * @Route("/", name="post_index")
    */
-  public function index()
+  public function index(TokenStorageInterface $tokenStorage, UserRepository $userRepository)
   {
+    $currentUser = $tokenStorage->getToken()->getUser();
+    $usersToFollow = [];
+    if($currentUser instanceof User){
+      $posts = 
+        $this->postRepository
+          ->findAllByUsers(
+            $currentUser->getFollowing()
+          )
+      ;
+      $usersToFollow = count($posts) === 0 ? $userRepository->findAllWithMoreThan5PostsExceptUser($currentUser) : [];
+    } else {
+      $posts = 
+        $this->postRepository->findBy([], ['time' => 'DESC']);
+    }
     $html = $this->twig->render(
       'post/index.html.twig', [
-        'posts' =>
-        $this->postRepository->findBy([], ['time' => 'DESC'])
-      // $this->postRepository->findAll()
+        'posts' => $posts,
+        'usersToFollow' => $usersToFollow,
       ]
     );
     return new Response($html);
   }
+
+  /**
+   * @Route("/user/{username}", name="post_user")
+   */
+  public function userPosts(User $userWithPosts)
+  {
+    $html = $this->twig->render(
+      'post/user-posts.html.twig', [
+        'posts' => $this->postRepository->findBy(
+          ['user' => $userWithPosts], 
+          ['time' => 'DESC'] 
+        ),
+        'user' => $userWithPosts
+      ]
+    );
+    return new Response($html);
+  }
+
   /**
    * @Route("/edit/{id}", name="post_edit")
    * @Security("is_granted('edit', post)", message="Access id deny")
@@ -109,18 +143,20 @@ class PostController
   {
     $this->entityManager->remove($post);
     $this->entityManager->flush();
-    $this->flashBag->add('notice', 'Post was deleted');
+    $this->flashBag->add('notice', 'Micro post was deleted');
     return new RedirectResponse(
       $this->router->generate('post_index')
     );
   }
   /**
    * @Route ("/add", name="post_add")
+   * @Security("is_granted('ROLE_USER')")
    */
-  public function add(Request $request)
+  public function add(Request $request, TokenStorageInterface $tokenStorage)
   {
+    $user = $tokenStorage->getToken()->getUser();
     $post = new Post();
-    $post->setTime(new \DateTime());
+    $post->setUser($user);
     $form = $this->formFactory->create(
             PostType::class,
             $post
