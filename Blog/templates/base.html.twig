@@ -12,12 +12,14 @@
 
   <nav class="navbar navbar-dark navbar-expand-md sticky-top bg-dark p-0">
     <a class="navbar-brand col-sm-3 col-md-2 mr-0"
-       href="{{ path('post_index') }}">Blog App</a>
+       href="{{ path('post_index') }}"> Post App</a>
     <div class="w-100 order-1 order-md-0">
         <ul class="navbar-nav px-3">
             {% if is_granted('ROLE_USER') %}
                 <li class="nav-item text-nowrap">
-                    <a class="nav-link" href="{{ path('post_add') }}">Add new</a>
+                    <a class="nav-link" href="{{ path('post_add') }}">
+                    {{ 'Add new'|trans }}
+                    </a>
                 </li>
             {% endif %}
         </ul>
@@ -28,11 +30,9 @@
             {% if is_granted('ROLE_USER') %}
                 <li class="nav-item text-nowrap border-right border-secondary">
                     <a href="{{ path('notification_all') }}" class="nav-link">
-                        Notification
+                        {{ 'Notification'|trans }}
                         <span class="badge badge-light" id="notification-count">
-                            <i class="fa fa-circle fa-circle-o-notch fa-spin">
-
-                            </i>
+                            <i class="fa fa-circle fa-circle-o-notch fa-spin"></i>
                         </span>
                     </a>
                 </li>
@@ -41,13 +41,15 @@
                        href="{{ path('post_user', { 'username': app.user.username }) }}">{{ app.user.fullName }}</a>
                 </li>
                 <li class="nav-item text-nowrap">
-                    <a class="nav-link"
-                       href="{{ path('security_logout') }}">Sign out</a>
+                    <a class="nav-link" href="{{ path('security_logout') }}">
+                        {{ 'Sign out'|trans }}
+                    </a>
                 </li>
             {% else %}
                 <li class="nav-item text-nowrap">
-                    <a class="nav-link"
-                       href="{{ path('security_login') }}">Sign in</a>
+                    <a class="nav-link" href="{{ path('security_login') }}">
+                       {{ 'Sign in'|trans }}
+                    </a>
                 </li>
             {% endif %}
         </ul>
@@ -78,9 +80,12 @@
                         setTimeout(fetchNotificationCount, 5000);
                     });
                 }).catch(function (reason) {
+
                 });
             }
+
             fetchNotificationCount();
+
     </script>
 {% endif %}
 </body>

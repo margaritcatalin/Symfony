@@ -36,8 +36,23 @@ services:
         arguments:
             $mailFrom: '%email_from%'
             
+    App\Event\LocaleSubscriber:
+        arguments:
+            - '%kernel.default_locale%'
+            
+    App\Event\UserSubscriber:
+        arguments:
+            $defaultLocale: '%kernel.default_locale%'
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
     App\EventListener\LikeNotificationSubscriber:
         tags:
             - { name: doctrine.event_subscriber, connection: default }
+
+    Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler:
+        arguments:
+            # - 'mysql:dbname=session_db'
+            # - 'mysql:dbname=mydatabase; host=myhost; port=myport'
+            # - { db_username: user, db_password: my_password }
+            - !service { class: PDO, factory: 'database_connection:getWrappedConnection' }
+            - { lock_mode: 1 }
