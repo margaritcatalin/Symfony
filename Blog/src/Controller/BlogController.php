@@ -2,11 +2,8 @@
 
 namespace App\Controller;
 
-use App\Service\Greeting;
-use App\Service\VeryBadDesign;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;

@@ -1,14 +1,10 @@
 <?php
-
 namespace App\Entity;
-
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PostRepository")
+ * @ORM\Table()
  */
 class Post
 {
@@ -18,19 +14,21 @@ class Post
      * @ORM\Column(type="integer")
      */
     private $id;
-
     /**
      * @ORM\Column(type="string", length=280)
      * @Assert\NotBlank()
-     * @assert\Length(min=10, minMessage="Enter more characters")
+     * @assert\Length(min=10, minMessage="Введите больше символов")
      */
     private $text;
-
     /**
      * @ORM\Column(type="datetime")
      */
     private $time;
-
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="posts")
+     * @ORM\JoinColumn()
+     */
+    private $user;
     /**
      * @return mixed
      */
@@ -38,23 +36,20 @@ class Post
     {
         return $this->id;
     }
-
     /**
-     * @return mixed
-     */
-    public function getText()
-    {
-        return $this->text;
-    }
-
-    /**
-     * @param mixed $text
-     */
-    public function setText($text): void
-    {
-        $this->text = $text;
-    }
-
+      * @return mixed
+      */
+     public function getText()
+     {
+         return $this->text;
+     }
+     /**
+      * @param mixed $text
+      */
+     public function setText($text): void
+     {
+         $this->text = $text;
+     }
     /**
      * @return mixed
      */
@@ -62,7 +57,6 @@ class Post
     {
         return $this->time;
     }
-
     /**
      * @param mixed $time
      */
@@ -70,13 +64,22 @@ class Post
     {
         $this->time = $time;
     }
-
     /**
-     * @ORM\PrePersist()
+     * Set the value of User
+     *
+     * @param mixed $user
      */
-    public function setTimeOnPersist($time): void
+    public function setUser($user):void
     {
-        $this->time = new \DateTime();
+        $this->user = $user;
     }
-
+    /**
+     * Get the value of User
+     *
+     * @return User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
 }
