@@ -1,9 +1,17 @@
 <?php
 namespace App\Event;
 use App\Event\UserRegisterEvent;
+use App\Mailer\Mailer;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class UserSubscriber implements EventSubscriberInterface
 {
+    /** @var Mailer $mailer */
+    private $mailer;
+    public function __construct(Mailer $mailer)
+    {
+        $this->mailer = $mailer;  
+    }
+    
     public static function getSubscribedEvents()
     {
         return [
@@ -12,6 +20,6 @@ class UserSubscriber implements EventSubscriberInterface
     }
     public function onUserRegister(UserRegisterEvent $event)
     {
-        // $event->getRegisteredUser()
+        $this->mailer->sendConfirmationEmail($event->getRegisteredUser());
     }
 }
