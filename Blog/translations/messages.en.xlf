@@ -6,6 +6,10 @@
                 <source>Signs in</source>
                 <target>Sign in</target>
             </trans-unit>
+            <trans-unit id="menu.register">
+                <source>Register</source>
+                <target>Register</target>
+            </trans-unit>
             <trans-unit id="menu.signout">
                 <source>Sign out</source>
                 <target>Sign out</target>

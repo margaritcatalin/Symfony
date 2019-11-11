@@ -20,6 +20,12 @@ class Post
     /**
      * @ORM\Column(type="string", length=280)
      * @Assert\NotBlank()
+     * @assert\Length(min=5, minMessage="Enter more characters")
+     */
+    private $title;
+    /**
+     * @ORM\Column(type="string", length=280)
+     * @Assert\NotBlank()
      * @assert\Length(min=10, minMessage="Enter more characters")
      */
     private $text;
@@ -120,5 +126,19 @@ class Post
             return;
         }
         $this->likedBy->add($user);
+    }
+    /**
+     * @return mixed
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+    /**
+     * @param mixed $title
+     */
+    public function setTitle($title): void
+    {
+        $this->title = $title;
     }
 }

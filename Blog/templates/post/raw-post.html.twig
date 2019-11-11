@@ -1,15 +1,19 @@
-<div class="media text-muted pt-3">
-  {% set initials = post.user.fullName|split(' ') %}
-    <img data-src="holder.js/32x32?text={{ attribute(initials, 0)|first }}{{ attribute(initials, 1)|first }}&bg=e83e8c&fg=fff&size=8" alt="" class="mr-2 rounded">
-    <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-        <span class="d-block">
-          <a href="{{ path('post_user', { 'username': post.user.username }) }}">
-            <strong class="text-gray-dark">@{{ post.user.username }}</strong>
-          </a>  
-          <small>· {{ post.time|date("d/m/Y") }}</small>
-        </span>
-        <a href="{{ path('post_post', { 'id': post.id }) }}">
-          {{ post.text }}
-        </a>
-    </p>
+<div class="my-2 mx-auto p-relative bg-white shadow-1 blue-hover" style="width: 360px; overflow: hidden; border-radius: 1px;">
+    <img src="https://images.pexels.com/photos/442559/pexels-photo-442559.jpeg?auto=compress&cs=tinysrgb" alt="Man with backpack"    
+        class="d-block w-full">
+<div class="px-2 py-2">
+<p class="mb-0 small font-weight-medium text-uppercase mb-1 text-muted lts-2px">
+    <a href="{{ path('post_user', { 'username': post.user.username }) }}" class="icon-link mr-3"><i class="fa fa-pencil-square-o"></i> {{ post.user.username }}</a>
+    <i class="fa fa-comments-o"></i> <small>· {{ post.time|date("d/m/Y") }}</small>
+</p>
+<h1 class="ff-serif font-weight-normal text-black card-heading mt-0 mb-1" style="line-height: 1.25;">
+    {{ post.title }}
+</h1>
+<p class="mb-1">
+    {{ post.text }}
+</p>
+</div>
+<a href="{{ path('post_post', { 'id': post.id }) }}" class="text-uppercase d-inline-block font-weight-medium lts-2px ml-2 mb-2 text-center styled-link">
+Read More
+</a>
 </div>

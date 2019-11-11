@@ -12,7 +12,7 @@
 
   <nav class="navbar navbar-dark navbar-expand-md sticky-top bg-dark p-0">
     <a class="navbar-brand col-sm-3 col-md-2 mr-0"
-       href="{{ path('post_index') }}"> Post App</a>
+       href="{{ path('post_index') }}"> Blog</a>
     <div class="w-100 order-1 order-md-0">
         <ul class="navbar-nav px-3">
             {% if is_granted('ROLE_USER') %}
@@ -36,9 +36,12 @@
                         </span>
                     </a>
                 </li>
-                <li class="nav-item text-nowrap">
-                    <a class="nav-link"
-                       href="{{ path('post_user', { 'username': app.user.username }) }}">{{ app.user.fullName }}</a>
+                <li class="dropdown nav-item text-nowrap">
+                    <a href="#" class="nav-link dropdown-toggle"  data-toggle="dropdown" role="button" aria-expanded="false">{{ app.user.fullName }} <span class="caret"></span></a>
+                    <ul class="dropdown-menu bg-dark" role="menu">
+                        <li><a class="nav-link" href="{{ path('post_user', { 'username': app.user.username }) }}"> {{ 'User Posts'|trans }}</a></li>
+                        <li><a  class="nav-link" href="#">Update profile</a></li>
+                    </ul>
                 </li>
                 <li class="nav-item text-nowrap">
                     <a class="nav-link" href="{{ path('security_logout') }}">
@@ -49,6 +52,11 @@
                 <li class="nav-item text-nowrap">
                     <a class="nav-link" href="{{ path('security_login') }}">
                        {{ 'Sign in'|trans }}
+                    </a>
+                </li>
+                <li class="nav-item text-nowrap">
+                    <a class="nav-link" href="{{ path('user_register') }}">
+                       {{ 'Register'|trans }}
                     </a>
                 </li>
             {% endif %}

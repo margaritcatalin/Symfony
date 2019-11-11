@@ -49,6 +49,15 @@ class AppFixtures extends Fixture
     'Did you watch the game yesterday?',
     'How was your day?'
   ];
+
+  private const POST_TITLE = [
+    'Start with a working title.',
+    'Stay accurate.',
+    'Make it sexy.',
+    'Keep it short.',
+    'Try to optimize for search and social.',
+    'Brainstorm with someone else.'
+  ];
   private const LANGUAGES = [
     'en',
     'ro'
@@ -76,6 +85,9 @@ class AppFixtures extends Fixture
         $date = new \DateTime();
         $date->modify('- ' . rand(0, 10) . ' days');
         $post->setTime($date);
+        $post->setTitle(
+          self::POST_TITLE[rand(0, count(self::POST_TITLE) - 1)]
+        );
         $post->setUser($this->getReference(
           self::USERS[rand(0, count(self::USERS) - 1)]['username']
         ));

@@ -6,12 +6,16 @@
                 <source>Signs in</source>
                 <target>Conecteaza-te</target>
             </trans-unit>
+            <trans-unit id="menu.register">
+                <source>Register</source>
+                <target>Inregistreaza-te</target>
+            </trans-unit>
             <trans-unit id="menu.signout">
                 <source>Sign out</source>
                 <target>Deconecteaza-te</target>
             </trans-unit>
             <trans-unit id="menu.notifications">
-                <source>Notifications</source>
+                <source>Notification</source>
                 <target>Notificari</target>
             </trans-unit>
             <trans-unit id="menu.add">
