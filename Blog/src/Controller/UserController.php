@@ -66,7 +66,7 @@ class UserController
    */
   public function index(TokenStorageInterface $tokenStorage, UserRepository $userRepository)
   {
-    $users = $this->userRepository->findBy([], ['time' => 'DESC']);
+    $users = $this->userRepository->findBy([]);
     $html = $this->twig->render(
       'user/index.html.twig', [
         'users' => $users,
