@@ -1,7 +1,7 @@
 <?php
 namespace App\Event;
 use App\Entity\User;
-use Symfony\Contracts\EventDispatcher\Event;
+use Symfony\Component\EventDispatcher\Event;
 class UserRegisterEvent extends Event
 {
     const NAME = 'user.register';
