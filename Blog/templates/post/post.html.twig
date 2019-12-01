@@ -7,12 +7,12 @@
 
     <div class="pt-2">
         <button style="display: {% if not isLiked %}block{% else %}none{% endif %}"
-                class="btn btn-outline-secondary btn-sm" id="like">Like
+                class="btn btn-outline-secondary btn-sm" id="like">{{ 'Like'|trans }}
             <span class="badge badge-light" id="likes-like">{{ post.getLikedBy.count }}</span>
         </button>
 
         <button style="display: {% if isLiked %}block{% else %}none{% endif %}"
-                class="btn btn-outline-danger btn-sm" id="unlike">Unlike
+                class="btn btn-outline-danger btn-sm" id="unlike">{{ 'Unlike'|trans }}
             <span class="badge badge-light" id="likes-unlike">{{ post.getLikedBy.count }}</span>
         </button>
     </div>

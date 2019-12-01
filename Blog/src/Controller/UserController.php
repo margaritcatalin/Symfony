@@ -1,9 +1,8 @@
 <?php
 namespace App\Controller;
-use App\Entity\Post;
 use App\Entity\User;
-use App\Form\PostType;
-use App\Repository\PostRepository;
+use App\Form\UserProfile;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -15,16 +14,16 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use App\Repository\UserRepository;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 /**
- * @Route("/post")
+ * @Route("/user")
  */
-class PostController
+class UserController
 {
   /** @var \Twig_Environment */
   private $twig;
-  /** @var PostRepository */
-  private $postRepository;
+  /** @var UserRepository */
+  private $userRepository;
   /** @var FormFactoryInterface */
   private $formFactory;
   /** @var EntityManagerInterface */
@@ -35,9 +34,10 @@ class PostController
   private $flashBag;
   /** @var AuthorizationCheckerInterface */
   private $authorizationChecker;
+
   /**
    * @param Twig_Environment              $twig                 [description]
-   * @param PostRepository                $postRepository  [description]
+   * @param UserRepository                $userRepository       [description]
    * @param FormFactoryInterface          $formFactory          [description]
    * @param EntityManagerInterface        $entityManager        [description]
    * @param RouterInterface               $router               [description]
@@ -46,7 +46,7 @@ class PostController
    */
   function __construct(
     \Twig_Environment $twig,
-    PostRepository $postRepository,
+    UserRepository $userRepository,
     FormFactoryInterface $formFactory,
     EntityManagerInterface $entityManager,
     RouterInterface $router,
@@ -54,7 +54,7 @@ class PostController
     AuthorizationCheckerInterface $authorizationChecker)
   {
     $this->twig = $twig;
-    $this->postRepository = $postRepository;
+    $this->userRepository = $userRepository;
     $this->formFactory = $formFactory;
     $this->entityManager = $entityManager;
     $this->router = $router;
@@ -62,125 +62,95 @@ class PostController
     $this->authorizationChecker = $authorizationChecker;
   }
   /**
-   * @Route("/", name="post_index")
+   * @Route("/", name="user_index")
    */
   public function index(TokenStorageInterface $tokenStorage, UserRepository $userRepository)
   {
+    $users = $this->userRepository->findBy([], ['time' => 'DESC']);
+    $html = $this->twig->render(
+      'user/index.html.twig', [
+        'users' => $users,
+      ]
+    );
+    return new Response($html);
+  }
+
+  /**
+   * @Route("/changelanguage/{language}", name="user_changelanguage")
+   */
+  public function userChangeLanguage(TokenStorageInterface $tokenStorage, String $language, Request $request)
+  {
     $currentUser = $tokenStorage->getToken()->getUser();
-    $usersToFollow = [];
-    if($currentUser instanceof User){
-      $posts = 
-        $this->postRepository
-          ->findAllByUsers(
-            $currentUser->getFollowing()
-          )
-      ;
-      $usersToFollow = count($posts) === 0 ? $userRepository->findAllWithMoreThan5PostsExceptUser($currentUser) : [];
-    } else {
-      $posts = 
-        $this->postRepository->findBy([], ['time' => 'DESC']);
-    }
-    $html = $this->twig->render(
-      'post/index.html.twig', [
-        'posts' => $posts,
-        'usersToFollow' => $usersToFollow,
-      ]
-    );
-    return new Response($html);
-  }
-
-  /**
-   * @Route("/user/{username}", name="post_user")
-   */
-  public function userPosts(User $userWithPosts)
-  {
-    $html = $this->twig->render(
-      'post/user-posts.html.twig', [
-        'posts' => $this->postRepository->findBy(
-          ['user' => $userWithPosts], 
-          ['time' => 'DESC'] 
-        ),
-        'user' => $userWithPosts
-      ]
-    );
-    return new Response($html);
-  }
-
-  /**
-   * @Route("/edit/{id}", name="post_edit")
-   * @Security("is_granted('edit', post)", message="Access id deny")
-   */
-  public function edit(Post $post, Request $request)
-  {
-    $form = $this->formFactory->create(
-            PostType::class,
-            $post
-        );
-    $form->handleRequest($request);
-    if($form->isSubmitted() && $form->isValid())
-    {
-      $this->entityManager->flush();
-      return new RedirectResponse(
-        $this->router->generate('post_index')
-      );
-    }
-    return new Response($this->twig->render(
-      'post/add.html.twig',
-      ['form' => $form->createView()]
-    ));
-  }
-  /**
-   * @Route("/delete/{id}", name="post_delete")
-   * @Security("is_granted('delete', post)", message="Access id deny")
-   */
-  public function delete(Post $post)
-  {
-    $this->entityManager->remove($post);
+    $userPreference = $currentUser->getPreferences();
+    $userPreference->setLocale($language);
+    $request->getSession()
+                ->set('_locale', $language);
     $this->entityManager->flush();
-    $this->flashBag->add('notice', 'Micro post was deleted');
     return new RedirectResponse(
+      
       $this->router->generate('post_index')
     );
   }
+
+
   /**
-   * @Route ("/add", name="post_add")
-   * @Security("is_granted('ROLE_USER')")
+   * @Route("/updateprofile", name="user_updateprofile")
    */
-  public function add(Request $request, TokenStorageInterface $tokenStorage)
+  public function updateProfile(TokenStorageInterface $tokenStorage, Request $request)
   {
-    $user = $tokenStorage->getToken()->getUser();
-    $post = new Post();
-    $post->setUser($user);
+    $currentUser = $tokenStorage->getToken()->getUser();
     $form = $this->formFactory->create(
-            PostType::class,
-            $post
+            UserProfile::class,
+            $currentUser
         );
     $form->handleRequest($request);
     if($form->isSubmitted() && $form->isValid())
     {
-      $this->entityManager->persist($post);
       $this->entityManager->flush();
       return new RedirectResponse(
         $this->router->generate('post_index')
       );
     }
     return new Response($this->twig->render(
-      'post/add.html.twig',
+      'user/add.html.twig',
+      ['form' => $form->createView()]
+    ));
+  }
+
+  /**
+   * @Route("/edit/{id}", name="user_edit")
+   * @Security("is_granted('edit', user)", message="Access id deny")
+   */
+  public function edit(User $user, Request $request)
+  {
+    $form = $this->formFactory->create(
+            UserProfile::class,
+            $user
+        );
+    $form->handleRequest($request);
+    if($form->isSubmitted() && $form->isValid())
+    {
+      $this->entityManager->flush();
+      return new RedirectResponse(
+        $this->router->generate('user_index')
+      );
+    }
+    return new Response($this->twig->render(
+      'user/add.html.twig',
       ['form' => $form->createView()]
     ));
   }
   /**
-   * @Route("/{id}", name="post_post")
+   * @Route("/delete/{id}", name="user_delete")
+   * @Security("is_granted('delete', user)", message="Access id deny")
    */
-  public function post(Post $post)
+  public function delete(User $user)
   {
-    return new Response(
-      $this->twig->render(
-        'post/post.html.twig',
-        [
-          'post' => $post
-        ]
-      )
+    $this->entityManager->remove($user);
+    $this->entityManager->flush();
+    $this->flashBag->add('notice', 'User was deleted');
+    return new RedirectResponse(
+      $this->router->generate('user_index')
     );
   }
 }

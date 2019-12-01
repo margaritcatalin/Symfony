@@ -28,6 +28,17 @@
     <div class="order-2 order-md-1">
         <ul class="navbar-nav px-3">
             {% if is_granted('ROLE_USER') %}
+                <li class="dropdown nav-item text-nowrap">
+                    <a href="#" class="nav-link dropdown-toggle"  data-toggle="dropdown" role="button" aria-expanded="false">
+                            {% if app.user.preferences.locale == "en" %}
+                            {{ 'English'|trans }} {% else %}
+                            {{ 'Romanian'|trans }}
+                            {% endif %} <span class="caret"></span></a>
+                    <ul class="dropdown-menu bg-dark" role="menu">
+                        <li><a class="nav-link" href="{{ path('user_changelanguage', { 'language': 'en' }) }}"><span class="flag-icon flag-icon-us"></span> {{ 'English'|trans }}</a></li>
+                        <li><a  class="nav-link" href="{{ path('user_changelanguage', { 'language': 'ro' }) }}"><span class="flag-icon flag-icon-mx"></span>{{ 'Romanian'|trans }}</a></li>
+                    </ul>
+                </li>
                 <li class="nav-item text-nowrap border-right border-secondary">
                     <a href="{{ path('notification_all') }}" class="nav-link">
                         {{ 'Notification'|trans }}
@@ -40,7 +51,7 @@
                     <a href="#" class="nav-link dropdown-toggle"  data-toggle="dropdown" role="button" aria-expanded="false">{{ app.user.fullName }} <span class="caret"></span></a>
                     <ul class="dropdown-menu bg-dark" role="menu">
                         <li><a class="nav-link" href="{{ path('post_user', { 'username': app.user.username }) }}"> {{ 'User Posts'|trans }}</a></li>
-                        <li><a  class="nav-link" href="#">Update profile</a></li>
+                        <li><a  class="nav-link" href="{{ path('user_updateprofile') }}">{{ 'Update profile'|trans }}</a></li>
                     </ul>
                 </li>
                 <li class="nav-item text-nowrap">

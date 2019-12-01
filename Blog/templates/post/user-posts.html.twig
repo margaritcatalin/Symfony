@@ -12,10 +12,10 @@
                 {% if is_granted('ROLE_USER') and user != app.user %}
                     {% if user.followers.contains(app.user) == false %}
                         <a href="{{ path('following_follow', {'id': user.id}) }}"
-                           class="btn btn-outline-primary">Follow</a>
+                           class="btn btn-outline-primary">{{ 'Follow'|trans }}</a>
                     {% else %}
                         <a href="{{ path('following_unfollow', {'id': user.id}) }}"
-                           class="btn btn-outline-danger">Unfollow</a>
+                           class="btn btn-outline-danger">{{ 'Unfollow'|trans }}</a>
                     {% endif %}
                 {% endif %}
             </div>
@@ -57,14 +57,5 @@
 
     {% for post in posts %}
         {{ include('post/raw-post.html.twig', { 'post': post }) }}
-
-        <small class="d-block text-right mt-3">
-            {% if is_granted('edit', post) %}
-                <a href="{{ path('post_edit', {'id': post.id}) }}">Edit</a>
-            {% endif %}
-            {% if is_granted('delete', post) %}
-                <a href="{{ path('post_delete', {'id': post.id}) }}">Delete</a>
-            {% endif %}
-        </small>
     {% endfor %}
 {% endblock %}

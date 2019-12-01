@@ -14,9 +14,29 @@
                 <source>Sign out</source>
                 <target>Deconecteaza-te</target>
             </trans-unit>
-            <trans-unit id="menu.notifications">
+            <trans-unit id="menu.notification">
                 <source>Notification</source>
+                <target>Notificare</target>
+            </trans-unit>
+            <trans-unit id="menu.notifications">
+                <source>Notifications</source>
                 <target>Notificari</target>
+            </trans-unit>
+            <trans-unit id="menu.userposts">
+                <source>User Posts</source>
+                <target>Postari</target>
+            </trans-unit>
+            <trans-unit id="menu.updateprofile">
+                <source>Update profile</source>
+                <target>Actualizare profil</target>
+            </trans-unit>
+            <trans-unit id="menu.English">
+                <source>English</source>
+                <target>Engleza</target>
+            </trans-unit>
+            <trans-unit id="menu.Romanian">
+                <source>Romanian</source>
+                <target>Romana</target>
             </trans-unit>
             <trans-unit id="menu.add">
                 <source>Add new</source>
@@ -26,7 +46,30 @@
                 <source>Recent updates</source>
                 <target>Postarile recente</target>
             </trans-unit>
-
+            <trans-unit id="post.recentposts">
+                <source>Recent posts</source>
+                <target>Postarile recente</target>
+            </trans-unit>
+            <trans-unit id="post.edit">
+                <source>Edit</source>
+                <target>Editeaza</target>
+            </trans-unit>
+            <trans-unit id="post.delete">
+                <source>Delete</source>
+                <target>Sterge</target>
+            </trans-unit>
+            <trans-unit id="post.like">
+                <source>Like</source>
+                <target>Imi place</target>
+            </trans-unit>
+            <trans-unit id="post.unline">
+                <source>Unlike</source>
+                <target>Nu imi place</target>
+            </trans-unit>
+            <trans-unit id="post.readmore">
+                <source>Read More</source>
+                <target>Citeste mai mult</target>
+            </trans-unit>
             <trans-unit id="register.terms">
                 <source>I agree to the terms of service</source>
                 <target>Sunt deacord cu termenii si conditiile</target>

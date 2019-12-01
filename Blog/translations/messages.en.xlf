@@ -14,9 +14,29 @@
                 <source>Sign out</source>
                 <target>Sign out</target>
             </trans-unit>
+            <trans-unit id="menu.notification">
+                <source>Notification</source>
+                <target>Notification</target>
+            </trans-unit>
             <trans-unit id="menu.notifications">
                 <source>Notifications</source>
                 <target>Notifications</target>
+            </trans-unit>
+            <trans-unit id="menu.userposts">
+                <source>User Posts</source>
+                <target>User Posts</target>
+            </trans-unit>
+            <trans-unit id="menu.updateprofile">
+                <source>Update profile</source>
+                <target>Update profile</target>
+            </trans-unit>
+            <trans-unit id="menu.English">
+                <source>English</source>
+                <target>English</target>
+            </trans-unit>
+            <trans-unit id="menu.Romanian">
+                <source>Romanian</source>
+                <target>Romanian</target>
             </trans-unit>
             <trans-unit id="menu.add">
                 <source>Add new</source>
@@ -26,7 +46,22 @@
                 <source>Recent updates</source>
                 <target>Recent updates</target>
             </trans-unit>
-
+            <trans-unit id="post.recentposts">
+                <source>Recent posts</source>
+                <target>Recent posts</target>
+            </trans-unit>
+            <trans-unit id="post.edit">
+                <source>Edit</source>
+                <target>Edit</target>
+            </trans-unit>
+            <trans-unit id="post.delete">
+                <source>Delete</source>
+                <target>Delete</target>
+            </trans-unit>
+            <trans-unit id="post.readmore">
+                <source>Read More</source>
+                <target>Read More</target>
+            </trans-unit>
             <trans-unit id="register.terms">
                 <source>I agree to the terms of service</source>
                 <target>I agree to the terms of service</target>

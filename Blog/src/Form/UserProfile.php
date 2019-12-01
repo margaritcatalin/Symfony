@@ -8,38 +8,30 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\IsTrue;
-
 /**
  *
  */
-class UserType extends AbstractType
+class UserProfile extends AbstractType
 {
   public function buildForm(FormBuilderInterface $builder, array $options)
   {
       $builder
+        ->add('fullname', TextType::class)
         ->add('username', TextType::class)
         ->add('email', EmailType::class)
         ->add('plainPassword', RepeatedType::class, [
-          'type' => PasswordType::class,
-          'first_options' => [
-            'label' => 'Password'
-          ],
-          'second_options' => [
-            'label' => 'Repeate password'
-          ]
-        ])
-        ->add('fullname', TextType::class)
-        ->add('termsAgreed', CheckboxType::class, [
-          'mapped' => false,
-          'constraints' => new IsTrue(),
-          'label' => 'I agreed to the service terms agreement'
-        ])
-        ->add('Register', SubmitType::class);
+            'type' => PasswordType::class,
+            'first_options' => [
+              'label' => 'Password'
+            ],
+            'second_options' => [
+              'label' => 'Repeate password'
+            ]
+          ])
+        ->add('Save', SubmitType::class);
 
   }
 

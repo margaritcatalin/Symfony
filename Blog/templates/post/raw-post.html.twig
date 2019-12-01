@@ -5,6 +5,14 @@
 <p class="mb-0 small font-weight-medium text-uppercase mb-1 text-muted lts-2px">
     <a href="{{ path('post_user', { 'username': post.user.username }) }}" class="icon-link mr-3"><i class="fa fa-pencil-square-o"></i> {{ post.user.username }}</a>
     <i class="fa fa-comments-o"></i> <small>· {{ post.time|date("d/m/Y") }}</small>
+    <small class="d-block text-right mt-3">
+            {% if is_granted('edit', post) %}
+                <a href="{{ path('post_edit', {'id': post.id}) }}">{{ 'Edit'|trans }}</a>
+            {% endif %}
+            {% if is_granted('delete', post) %}
+                <a href="{{ path('post_delete', {'id': post.id}) }}">{{ 'Delete'|trans }}</a>
+            {% endif %}
+    </small>
 </p>
 <h1 class="ff-serif font-weight-normal text-black card-heading mt-0 mb-1" style="line-height: 1.25;">
     {{ post.title }}
@@ -14,6 +22,6 @@
 </p>
 </div>
 <a href="{{ path('post_post', { 'id': post.id }) }}" class="text-uppercase d-inline-block font-weight-medium lts-2px ml-2 mb-2 text-center styled-link">
-Read More
+        {{ 'Read More'|trans }}
 </a>
 </div>
