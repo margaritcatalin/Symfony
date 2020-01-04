@@ -8,10 +8,12 @@ class LikeNotification extends Notification
 {
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Post")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $post;
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $likedBy;
     /**
