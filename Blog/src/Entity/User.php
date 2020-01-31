@@ -355,4 +355,9 @@ class User implements UserInterface, \Serializable
   {
     $this->preferences = $preferences;
   }
+
+  public function __toString()
+{
+    return (string) $this->getFullName() . " " . $this->getUsername();
+}
 }

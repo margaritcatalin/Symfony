@@ -40,7 +40,31 @@
             </trans-unit>
             <trans-unit id="menu.add">
                 <source>Add new</source>
-                <target>Add new</target>
+                <target>Add a new post</target>
+            </trans-unit>
+            <trans-unit id="profile.information">
+                <source>Information</source>
+                <target>Information</target>
+            </trans-unit>
+            <trans-unit id="search.noresults">
+                <source>No results found.</source>
+                <target>No results found.</target>
+            </trans-unit>
+            <trans-unit id="search.searchPost">
+                <source>Enter your search key word.</source>
+                <target>Enter your search key word.</target>
+            </trans-unit>
+            <trans-unit id="post.searchingfor">
+                <source>Searching for</source>
+                <target>Searching for</target>
+            </trans-unit>
+            <trans-unit id="post.youhavefound">
+                <source>you have found</source>
+                <target>you have found</target>
+            </trans-unit>
+            <trans-unit id="post.results">
+                <source>results</source>
+                <target>results</target>
             </trans-unit>
             <trans-unit id="post.recent">
                 <source>Recent updates</source>

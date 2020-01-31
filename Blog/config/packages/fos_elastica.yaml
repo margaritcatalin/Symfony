@@ -1,0 +1,28 @@
+# Read the documentation: https://github.com/FriendsOfSymfony/FOSElasticaBundle/blob/master/Resources/doc/setup.md
+fos_elastica:
+    clients:
+        default: { url: '%env(ELASTICSEARCH_URL)%' }
+    indexes:
+        app_user:
+            types:
+                users:
+                    properties:
+                        username: ~
+                        fullName: ~
+                        email: ~
+                    persistence:
+                        driver: orm
+                        model: App\Entity\User
+                        repository: App\Repository\UserRepository
+        app_post:
+            types:
+                posts:
+                    properties:
+                        title: ~
+                        text: ~
+                        user: ~
+                        time: ~
+                    persistence:
+                        driver: orm
+                        model: App\Entity\Post
+                        repository: App\Repository\PostRepository

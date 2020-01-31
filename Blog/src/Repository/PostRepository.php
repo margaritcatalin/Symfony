@@ -4,6 +4,8 @@ use App\Entity\Post;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Persistence\ManagerRegistry;
+
 /**
  * @method Post|null find($id, $lockMode = null, $lockVersion = null)
  * @method Post|null findOneBy(array $criteria, array $orderBy = null)
@@ -12,7 +14,7 @@ use Doctrine\Common\Collections\Collection;
  */
 class PostRepository extends ServiceEntityRepository
 {
-  public function __construct(RegistryInterface $registry)
+  public function __construct(ManagerRegistry $registry)
   {
       parent::__construct(
           $registry,

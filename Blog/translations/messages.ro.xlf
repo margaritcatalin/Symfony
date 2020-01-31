@@ -40,7 +40,31 @@
             </trans-unit>
             <trans-unit id="menu.add">
                 <source>Add new</source>
-                <target>Adauga</target>
+                <target>Adauga o noua postare</target>
+            </trans-unit>
+            <trans-unit id="profile.information">
+                <source>Information</source>
+                <target>Informatii</target>
+            </trans-unit>
+            <trans-unit id="search.noresults">
+                <source>No results found.</source>
+                <target>Nu am gasit niciun rezultat.</target>
+            </trans-unit>
+            <trans-unit id="search.searchPost">
+                <source>Enter your search key word.</source>
+                <target>Cautati ceva?</target>
+            </trans-unit>
+            <trans-unit id="post.searchingfor">
+                <source>Searching for</source>
+                <target>Cautand</target>
+            </trans-unit>
+            <trans-unit id="post.youhavefound">
+                <source>you have found</source>
+                <target>ai gasit</target>
+            </trans-unit>
+            <trans-unit id="post.results">
+                <source>results</source>
+                <target>rezultate</target>
             </trans-unit>
             <trans-unit id="post.recent">
                 <source>Recent updates</source>

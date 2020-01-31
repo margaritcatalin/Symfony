@@ -1,0 +1,41 @@
+<style>.search {
+    width: 100%;
+    position: relative;
+    display: flex;
+  }
+  
+  .searchTerm {
+    width: 100%;
+    border: 3px solid #454b5c;
+    border-right: none;
+    padding: 5px;
+    height: 36px;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+    color: #9DBFAF;
+  }
+  
+  .searchTerm:focus{
+    color: #515666;
+  }
+  
+  .searchButton {
+    width: 40px;
+    height: 36px;
+    border: 1px solid #454b5c;
+    background: #454b5c;
+    text-align: center;
+    color: #fff;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-size: 20px;
+  }
+  </style>
+<form action="/search/post" method="get">
+        <div class="search">
+        <input required="required" id="q" name="q" value="" type="text" aria-describedby="qHelp"  class="searchTerm" placeholder="{{ 'Enter your search key word.'|trans }}">
+        <button type="submit" class="searchButton">
+            <i class="fa fa-search"></i>
+         </button>
+    </div>
+</form>
