@@ -94,13 +94,18 @@
 
             <trans-unit id="email.registration">
                 <source>email.registration</source>
-                <target><![CDATA[<h3>Welcome to the app!</h3>
-<p>Hello %name%! You've registered into the app!</p>
-<p>Please confirm account by clicking this
-    <a href="%confirm-link%">link</a>.
-</p>
-<p>To login, go to <a href="%login-link%">login page</a>.</p>
-<p>Thanks!</p>]]></target>
+                <target><![CDATA[<div style="background-color: #F5F7FA; padding: 50px; min-width: 360px;">  
+  <div style="max-width: 600px; margin: 0 auto; padding: 60px 75px 50px; background-color: white;">
+    <h1 style="padding: 50px 0 15px; font-family: Arial, sans-serif; font-size: 36px; color: #343B4E;">Welcome to Blog Application</h1>
+    <p style="padding-bottom: 15px; font-family: Arial, sans-serif; font-size: 18px; color: #52556B; line-height: 1.5">Hello %name%! Thank you for signing up to be a member of the Blog Application.</p>
+    <p style="padding-bottom: 15px; font-family: Arial, sans-serif; font-size: 18px; color: #52556B; line-height: 1.5">You're just moments away from being accessible to customers on our website who are searching in your service area. </p>
+    <p style="padding-bottom: 15px; font-family: Arial, sans-serif; font-size: 18px; color: #52556B; line-height: 1.5">In the meantime, please verify your email and confirm registration by clicking below. Once verified, you will be able to login to Blog Application and access all our resources.</p>
+    <p style="padding: 25px 0 40px;">
+      <a style="padding: 20px 25px; background-color: #46A069; color: #FFFFFF; text-decoration: none; text-transform: uppercase; font-family: Arial, sans-serif; font-size: 20px;" href="%confirm-link%" target="_blank">VERIFY MY EMAIL</a>
+    </p>
+  </div>
+  <p style="padding: 50px 0 0; text-align: center; font-family: Arial, sans-serif; font-size: 12px; color: #838A9F">Copyright&copy; 2020 Margarit Marian Catalin</p>
+</div>]]></target>
             </trans-unit>
 
             <trans-unit id="user.followers">

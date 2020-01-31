@@ -102,13 +102,18 @@
 
             <trans-unit id="email.registration">
                 <source>email.registration</source>
-                <target><![CDATA[<h3>Bine ati venit pe Blog!</h3>
-<p>Salut %name%! Te-ai inregistrat pe Blog!</p>
-<p>Te rugam sa confirmi adresa de email apasand pe urmatorul link
-    <a href="%confirm-link%">link</a>.
-</p>
-<p>Pentru autentificare, mergi catre <a href="%login-link%">pagina de autentificare</a>.</p>
-<p>Thanks!</p>]]></target>
+                <target><![CDATA[<div style="background-color: #F5F7FA; padding: 50px; min-width: 360px;">  
+  <div style="max-width: 600px; margin: 0 auto; padding: 60px 75px 50px; background-color: white;">
+    <h1 style="padding: 50px 0 15px; font-family: Arial, sans-serif; font-size: 36px; color: #343B4E;">Bun venit pe Blog Application</h1>
+    <p style="padding-bottom: 15px; font-family: Arial, sans-serif; font-size: 18px; color: #52556B; line-height: 1.5">Salut %name%! Vă mulțumim că v-ați înscris pentru a fi membru al aplicației de blog.</p>
+    <p style="padding-bottom: 15px; font-family: Arial, sans-serif; font-size: 18px; color: #52556B; line-height: 1.5">Ești la doar câteva momente de a putea accesa aplicatia noastra.</p>
+    <p style="padding-bottom: 15px; font-family: Arial, sans-serif; font-size: 18px; color: #52556B; line-height: 1.5">Între timp, vă rugăm să verificați e-mailul dvs. și să confirmați înregistrarea făcând clic mai jos. Odată verificat, veți putea să vă conectați pe Blog și să accesați toate resursele noastre.</p>
+    <p style="padding: 25px 0 40px;">
+      <a style="padding: 20px 25px; background-color: #46A069; color: #FFFFFF; text-decoration: none; text-transform: uppercase; font-family: Arial, sans-serif; font-size: 20px;" href="%confirm-link%" target="_blank">VERIFICATI EMAILUL</a>
+    </p>
+  </div>
+  <p style="padding: 50px 0 0; text-align: center; font-family: Arial, sans-serif; font-size: 12px; color: #838A9F">Copyright&copy; 2020 Margarit Marian Catalin</p>
+</div>]]></target>
             </trans-unit>
 
             <trans-unit id="user.followers">
