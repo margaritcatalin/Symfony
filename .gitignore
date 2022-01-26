@@ -1,3 +1,8 @@
+
+# Created by https://www.toptal.com/developers/gitignore/api/symfony
+# Edit at https://www.toptal.com/developers/gitignore?templates=symfony
+
+### Symfony ###
 # Cache and logs (Symfony2)
 /app/cache/*
 /app/logs/*
@@ -14,6 +19,10 @@
 !var/cache/.gitkeep
 !var/logs/.gitkeep
 !var/sessions/.gitkeep
+
+# Logs (Symfony4)
+/var/log/*
+!var/log/.gitkeep
 
 # Parameters
 /app/config/parameters.yml
@@ -46,3 +55,9 @@
 
 # Embedded web-server pid file
 /.web-server-pid
+
+### Symfony Patch ###
+/web/css/
+/web/js/
+
+# End of https://www.toptal.com/developers/gitignore/api/symfony
